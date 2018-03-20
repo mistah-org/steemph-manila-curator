@@ -2,7 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 
 // write to device log
-$userList = file("./users/list", FILE_IGNORE_NEW_LINES);
+$userList = file("./users/list");
 
 $response = array(
     'users' => $userList
