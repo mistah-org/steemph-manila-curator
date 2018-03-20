@@ -12,10 +12,13 @@ while (!feof($fp)) {
   $line=trim($line);
   $users[]=$line;
 }
+$users[]=$user;
 fclose($fp);
 
-$uniqueUsers = array_unique($users);
-file_put_contents('./users/list', implode(PHP_EOL, $uniqueUsers));
+$unique_users = array_unique($users);
+foreach ($unique_users as $username) {
+  file_put_contents($filename, $username . PHP_EOL, FILE_APPEND | LOCK_EX));
+}
 
 $response = array(
     'user' => $user,
