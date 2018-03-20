@@ -56,60 +56,28 @@
       <div class="row">
 
         <!-- Blog Entries Column -->
-        <div class="col-md-8">
+        <div class="col-md-8 blog-entries">
 
           <!-- Page Heading -->
-          <h1 class="my-4">Page Heading
-            <small>Secondary Text</small>
+          <h1 class="my-4">STEEM Philippines
+            <small>Manila</small>
           </h1>
 
-          <div class="row">
-            <div class="col-md-4">
+          <div class="row blog-entry" style="display: none">
+            <div class="col-md-4 blog-img-div">
               <a href="#">
-                <img class="img-fluid rounded mb-3 mb-md-0" src="https://steemitimages.com/256x512/https://res.cloudinary.com/hpiynhbhq/image/upload/v1521302155/wxbmoaf63tvl1byur7jz.png" alt="">
+                <img class="img-fluid rounded mb-3 mb-md-0 blog-image" src="https://steemitimages.com/256x512/https://res.cloudinary.com/hpiynhbhq/image/upload/v1521302155/wxbmoaf63tvl1byur7jz.png" alt="">
               </a>
             </div>
-            <div class="col-md-8">
-              <h3>Project One</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
-              <a class="btn btn-primary" href="#">View Project</a>
+            <div class="col-md-8 blog-details-div">
+              <h3 class="blog-title">Project One</h3>
+              <p class="blog-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
+              <a class="btn btn-primary blog-link" href="#">View Post</a>
             </div>
           </div>
           <!-- /.row -->
 
-          <hr>
-
-          <div class="row">
-            <div class="col-md-4">
-              <a href="#">
-                <img class="img-fluid rounded mb-3 mb-md-0" src="https://steemitimages.com/256x512/https://res.cloudinary.com/hpiynhbhq/image/upload/v1521302155/wxbmoaf63tvl1byur7jz.png" alt="">
-              </a>
-            </div>
-            <div class="col-md-8">
-              <h3>Project One</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
-              <a class="btn btn-primary" href="#">View Project</a>
-            </div>
-          </div>
-          <!-- /.row -->
-
-          <hr>
-
-          <div class="row">
-            <div class="col-md-4">
-              <a href="#">
-                <img class="img-fluid rounded mb-3 mb-md-0" src="https://steemitimages.com/256x512/https://res.cloudinary.com/hpiynhbhq/image/upload/v1521302155/wxbmoaf63tvl1byur7jz.png" alt="">
-              </a>
-            </div>
-            <div class="col-md-8">
-              <h3>Project One</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
-              <a class="btn btn-primary" href="#">View Project</a>
-            </div>
-          </div>
-          <!-- /.row -->
-
-          <hr>
+          <hr />
 
           <!-- Pagination -->
           <ul class="pagination justify-content-center mb-4">
@@ -157,9 +125,9 @@
             <div class="card-body">
               <div class="form-inline">
                 <label class="sr-only" for="start-date">From:</label>
-                <input type="date" class="form-control" id="start-date" placeholder="start date" />
+                <input type="date" class="form-control" id="start-date" placeholder="start date" value="<?php echo date('Y-m-d'); ?>" />
                 <label class="sr-only" for="end-date">To:</label>
-                <input type="date" class="form-control" id="end-date" placeholder="end date" />
+                <input type="date" class="form-control" id="end-date" placeholder="end date" value="<?php echo date('Y-m-d'); ?>" />
               </div>
             </div>
             <button type="button" class="btn btn-primary search">Search</button>
@@ -209,10 +177,11 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
+    <script src="js/remove-markdown.js"></script>
     <script>
         steem.api.setOptions({ url: 'https://api.steemit.com/' });
         $(document).ready(function() {
-          $.getJSON('https://steemph-manila-curator.herokuapp.com/get-users.php', 
+          $.getJSON('/get-users.php', 
             { user : null }, 
             function(data) {
               console.log('get user success');
@@ -239,6 +208,39 @@
 
             const dates = [$('#start-date').val(), $('#end-date').val()];
             console.log(dates);
+            const datenow = new Date();
+
+            authors.forEach((author) => {
+              steem.api.getDiscussionsByAuthorBeforeDate(author, '', '2018-03-20T00:00:00', 10, function(err, result) {
+                console.log(err, result);
+                result.forEach((post) => {
+                  const postUrl = "https://steemit.com/" + post.url;
+                  const postBody = removeMarkdown(post.body).substring(0, 500);
+                  const metadata = JSON.parse(post.json_metadata);
+                  let imageUrl = '';
+                  if(metadata.links && metadata.links.length > 0) {
+                    imageUrl = metadata.links[0];
+                  }
+                  const div = `
+<div class="row blog-entry">
+  <div class="col-md-4 blog-img-div">
+    <a href="#">
+      <img class="img-fluid rounded mb-3 mb-md-0 blog-image" src="https://steemitimages.com/256x512/${imageUrl}" alt="">
+    </a>
+  </div>
+  <div class="col-md-8 blog-details-div">
+    <h5 class="blog-title">${post.root_title}</h3>
+    <p class="blog-author">Author: ${post.author} / Number of Words: xxx / Est. Reading Time: yy mins.</p>
+    <p class="blog-description">${postBody}</p>
+    <a class="btn btn-primary blog-link" href="${postUrl}">View Post</a>
+  </div>
+  </hr>
+</div>
+`;
+                  $(div).insertAfter('.blog-entry:last');
+                });
+              });
+            });
 
           });
         
@@ -247,7 +249,7 @@
 
             let hasDuplicate = false; 
             $('.user-list li').each(function() {
-              if ($(this).text() === newuser) {
+              if ($(this).text() === newuser || newuser === '') {
                 hasDuplicate = true;
                 return false;
               }
@@ -255,7 +257,7 @@
 
             if (!hasDuplicate) {
               $('.user-list').append('<li><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a>' + newuser + '</li>');
-              $.getJSON('https://steemph-manila-curator.herokuapp.com/add-user.php', 
+              $.getJSON('/add-user.php', 
                 { user : newuser }, 
                 function(data) {
                   console.log('added user success');
@@ -272,7 +274,7 @@
           $('.user-list').on('click', '.remove-user', function() {
             const removeUser = $( this ).parents('li').text();
             $('.user-list li').filter(function() { return $.text([this]) === removeUser; }).remove();
-            $.getJSON('https://steemph-manila-curator.herokuapp.com/remove-user.php', 
+            $.getJSON('/remove-user.php', 
               { user : removeUser }, 
               function(data) {
                 console.log('remove user success');
