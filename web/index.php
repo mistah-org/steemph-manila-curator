@@ -12,6 +12,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
     <link href="css/blog-home.css" rel="stylesheet">
@@ -119,45 +121,31 @@
 
           <!-- Search Widget -->
           <div class="card my-4">
-            <h5 class="card-header">Search</h5>
+            <h5 class="card-header">Authors</h5>
             <div class="card-body">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-                  <button class="btn btn-secondary" type="button">Go!</button>
-                </span>
+              <div class="form-row">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">@</div>
+                  </div>
+                  <input type="text" class="form-control" id="user" placeholder="Username">
+                  <a href="#" class="btn btn-primary add-user">
+                    <span class="fas fa-plus-circle" aria-hidden="true"></span>
+                  </a>
+                </div>
               </div>
-            </div>
-          </div>
-
-          <!-- Categories Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Categories</h5>
-            <div class="card-body">
               <div class="row">
                 <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
+                  <ul class="list-unstyled mb-0 user-list">
                     <li>
-                      <a href="#">Web Design</a>
+                      <a href="#">
+                        <span class="fas fa-times-circle" aria-hidden="true"></span>
+                      </a>eastmael
                     </li>
                     <li>
-                      <a href="#">HTML</a>
-                    </li>
-                    <li>
-                      <a href="#">Freebies</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
-                    <li>
-                      <a href="#">JavaScript</a>
-                    </li>
-                    <li>
-                      <a href="#">CSS</a>
-                    </li>
-                    <li>
-                      <a href="#">Tutorials</a>
+                      <a href="#">
+                        <span class="fas fa-times-circle" aria-hidden="true"></span>
+                      </a>eastmael
                     </li>
                   </ul>
                 </div>
@@ -192,7 +180,21 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+    <script>
+        $(document).ready(function() {
+          $('.add-user').on('click', function() {
+			 const newuser = $('#user').val();
+             $.getJSON('/add-user.php', 
+                { user : newuser }, 
+                function(data) {
+                    $('.user-list').append('<li><a href="#"><span class="fas fa-times-circle" aria-hidden="true"></span></a>' + newuser + '</li>');
+                }
+			).fail(function(error) {
+               console.log(error);
+            });
+          });
+        });
+    </script>
   </body>
 
 </html>
