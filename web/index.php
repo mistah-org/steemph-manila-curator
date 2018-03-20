@@ -137,16 +137,6 @@
               <div class="row">
                 <div class="col-lg-6">
                   <ul class="list-unstyled mb-0 user-list">
-                    <li>
-                      <a href="#">
-                        <span class="fas fa-times-circle" aria-hidden="true"></span>
-                      </a>eastmael
-                    </li>
-                    <li>
-                      <a href="#">
-                        <span class="fas fa-times-circle" aria-hidden="true"></span>
-                      </a>eastmael
-                    </li>
                   </ul>
                 </div>
               </div>
@@ -183,16 +173,46 @@
     <script>
         $(document).ready(function() {
           $('.add-user').on('click', function() {
-			 const newuser = $('#user').val();
-             $.getJSON('/add-user.php', 
+            const newuser = $('#user').val();
+
+            let hasDuplicate = false; 
+            $('.user-list li').each(function() {
+              if ($(this).text() === newuser) {
+                hasDuplicate = true;
+                return false;
+              }
+            });
+
+            if (!hasDuplicate) {
+              $('.user-list').append('<li><a href="#"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a>' + newuser + '</li>');
+              $.getJSON('/add-user.php', 
                 { user : newuser }, 
                 function(data) {
-                    $('.user-list').append('<li><a href="#"><span class="fas fa-times-circle" aria-hidden="true"></span></a>' + newuser + '</li>');
+                  console.log('added user success');
+                  console.log(data);
                 }
-			).fail(function(error) {
+              ).fail(function(error) {
+                 console.log(error);
+              });
+            }
+
+            $('#user').val('');
+          });
+
+          $('.user-list').on('click', '.remove-user', function() {
+            const removeUser = $( this ).parents('li').text();
+            $('.user-list li').filter(function() { return $.text([this]) === removeUser; }).remove();
+            $.getJSON('/remove-user.php', 
+              { user : removeUser }, 
+              function(data) {
+                console.log('remove user success');
+                console.log(data);
+              }
+            ).fail(function(error) {
                console.log(error);
             });
           });
+
         });
     </script>
   </body>
