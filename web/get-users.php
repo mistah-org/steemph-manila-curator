@@ -14,8 +14,9 @@ while (!feof($fp)) {
 $users[]=$user;
 fclose($fp);
 
+$unique_users = array_unique($users);
 $response = array(
-    'users' => array_unique($users)
+    'users' => array_filter($unique_users)
   );
 header('Content-type:application/json;charset=utf-8');
 echo json_encode($response);
