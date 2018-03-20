@@ -195,6 +195,8 @@
                  console.log(error);
               });
             }
+
+            $('#user').val('');
           });
 
           $('.user-list').on('click', '.remove-user', function() {
