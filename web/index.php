@@ -225,11 +225,21 @@
           });
 
           $('.search').on('click', function() {
-            const authors = ['eastmael', 'steemph'];
+            const authors = [];
+            $('.user-list li').each(function() {
+              authors.push($(this).text());
+            });
+            console.log(authors);
+
             const tags = [];
-            const dates = [];
-            
-            
+            $('.tag-list li').each(function() {
+              tags.push($(this).text());
+            });
+            console.log(tags);
+
+            const dates = [$('#start-date').val(), $('#end-date').val()];
+            console.log(dates);
+
           });
         
           $('.add-user').on('click', function() {
