@@ -9,8 +9,9 @@ fputcsv($userList, $user);
 fclose($userList);
 
 $response = array(
-    'user' => $user
-  );
+    'user' => $user,
+    'userList' => $userList
+    );
 header('Content-type:application/json;charset=utf-8');
 echo json_encode($response);
 
