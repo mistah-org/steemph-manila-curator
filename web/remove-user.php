@@ -9,7 +9,7 @@ $users = array();
 while (!feof($fp)) {
   $line=fgets($fp);
   $line=trim($line);
-  if ($line !== '' && $line !== $user) {
+  if (!($line === '' || $line === $user)) {
     $users[]=$line;
   }
 }
