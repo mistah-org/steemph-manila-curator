@@ -3,7 +3,6 @@ header("Access-Control-Allow-Origin: *");
 
 $user = strtolower(urldecode($_GET["user"]));
 
-// write to device log
 $filename = "./users/list";
 $fp = fopen($filename, 'r');
 $users = array();
@@ -24,7 +23,7 @@ fclose($fp);
 
 $response = array(
     'user' => $user,
-    'userlist' => $userArray
+    'userlist' => $unique_users
   );
 header('Content-type:application/json;charset=utf-8');
 echo json_encode($response);
