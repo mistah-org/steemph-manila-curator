@@ -16,9 +16,12 @@ $users[]=$user;
 fclose($fp);
 
 $unique_users = array_unique($users);
+$fp = fopen($filename, 'w') or die("Unable to open file!");
 foreach ($unique_users as $username) {
   file_put_contents($filename, $username . PHP_EOL, FILE_APPEND | LOCK_EX));
+  fwrite($fp, $username);
 }
+fclose($fp);
 
 $response = array(
     'user' => $user,
