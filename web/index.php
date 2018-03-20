@@ -58,51 +58,58 @@
         <!-- Blog Entries Column -->
         <div class="col-md-8">
 
+          <!-- Page Heading -->
           <h1 class="my-4">Page Heading
             <small>Secondary Text</small>
           </h1>
 
-          <!-- Blog Post -->
-          <div class="card mb-4">
-            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-            <div class="card-body">
-              <h2 class="card-title">Post Title</h2>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-              <a href="#/" class="btn btn-primary">Read More &rarr;</a>
+          <div class="row">
+            <div class="col-md-4">
+              <a href="#">
+                <img class="img-fluid rounded mb-3 mb-md-0" src="https://steemitimages.com/256x512/https://res.cloudinary.com/hpiynhbhq/image/upload/v1521302155/wxbmoaf63tvl1byur7jz.png" alt="">
+              </a>
             </div>
-            <div class="card-footer text-muted">
-              Posted on January 1, 2017 by
-              <a href="#/">Start Bootstrap</a>
+            <div class="col-md-8">
+              <h3>Project One</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
+              <a class="btn btn-primary" href="#">View Project</a>
             </div>
           </div>
+          <!-- /.row -->
 
-          <!-- Blog Post -->
-          <div class="card mb-4">
-            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-            <div class="card-body">
-              <h2 class="card-title">Post Title</h2>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-              <a href="#/" class="btn btn-primary">Read More &rarr;</a>
-            </div>
-            <div class="card-footer text-muted">
-              Posted on January 1, 2017 by
-              <a href="#/">Start Bootstrap</a>
-            </div>
-          </div>
+          <hr>
 
-          <!-- Blog Post -->
-          <div class="card mb-4">
-            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-            <div class="card-body">
-              <h2 class="card-title">Post Title</h2>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-              <a href="#/" class="btn btn-primary">Read More &rarr;</a>
+          <div class="row">
+            <div class="col-md-4">
+              <a href="#">
+                <img class="img-fluid rounded mb-3 mb-md-0" src="https://steemitimages.com/256x512/https://res.cloudinary.com/hpiynhbhq/image/upload/v1521302155/wxbmoaf63tvl1byur7jz.png" alt="">
+              </a>
             </div>
-            <div class="card-footer text-muted">
-              Posted on January 1, 2017 by
-              <a href="#/">Start Bootstrap</a>
+            <div class="col-md-8">
+              <h3>Project One</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
+              <a class="btn btn-primary" href="#">View Project</a>
             </div>
           </div>
+          <!-- /.row -->
+
+          <hr>
+
+          <div class="row">
+            <div class="col-md-4">
+              <a href="#">
+                <img class="img-fluid rounded mb-3 mb-md-0" src="https://steemitimages.com/256x512/https://res.cloudinary.com/hpiynhbhq/image/upload/v1521302155/wxbmoaf63tvl1byur7jz.png" alt="">
+              </a>
+            </div>
+            <div class="col-md-8">
+              <h3>Project One</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
+              <a class="btn btn-primary" href="#">View Project</a>
+            </div>
+          </div>
+          <!-- /.row -->
+
+          <hr>
 
           <!-- Pagination -->
           <ul class="pagination justify-content-center mb-4">
@@ -137,12 +144,11 @@
               <div class="row">
                 <div class="col-lg-6">
                   <ul class="list-unstyled mb-0 user-list">
-                    <li><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a>eastmael</li>
-                    <li><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a>steemitph</li>
                   </ul>
                 </div>
               </div>
             </div>
+            <button type="button" class="btn btn-primary search">Search</button>
           </div>
 
           <!-- Date Widget -->
@@ -156,6 +162,7 @@
                 <input type="date" class="form-control" id="end-date" placeholder="end date" />
               </div>
             </div>
+            <button type="button" class="btn btn-primary search">Search</button>
           </div>
 
           <!-- Tag Filter Widget -->
@@ -178,10 +185,9 @@
                   <input class="card-link" type="checkbox" id="contains-all-tags" /> contains all tags
                 </div>
               </div>
-            </div
+            </div>
+            <button type="button" class="btn btn-primary search">Search</button>
           </div>
-
-
 
         </div>
 
@@ -202,8 +208,30 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
     <script>
+        steem.api.setOptions({ url: 'https://api.steemit.com/' });
         $(document).ready(function() {
+          $.getJSON('https://steemph-manila-curator.herokuapp.com/get-users.php', 
+            { user : null }, 
+            function(data) {
+              console.log('get user success');
+              data.users.forEach((user, index) => {
+                $('.user-list').append('<li><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a>' + user + '</li>');
+              });
+            }
+          ).fail(function(error) {
+             console.log(error);
+          });
+
+          $('.search').on('click', function() {
+            const authors = ['eastmael', 'steemph'];
+            const tags = [];
+            const dates = [];
+            
+            
+          });
+        
           $('.add-user').on('click', function() {
             const newuser = $('#user').val();
 
@@ -217,7 +245,7 @@
 
             if (!hasDuplicate) {
               $('.user-list').append('<li><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a>' + newuser + '</li>');
-              $.getJSON('/add-user.php', 
+              $.getJSON('https://steemph-manila-curator.herokuapp.com/add-user.php', 
                 { user : newuser }, 
                 function(data) {
                   console.log('added user success');
@@ -234,7 +262,7 @@
           $('.user-list').on('click', '.remove-user', function() {
             const removeUser = $( this ).parents('li').text();
             $('.user-list li').filter(function() { return $.text([this]) === removeUser; }).remove();
-            $.getJSON('/remove-user.php', 
+            $.getJSON('https://steemph-manila-curator.herokuapp.com/remove-user.php', 
               { user : removeUser }, 
               function(data) {
                 console.log('remove user success');
