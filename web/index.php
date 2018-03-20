@@ -56,53 +56,28 @@
       <div class="row">
 
         <!-- Blog Entries Column -->
-        <div class="col-md-8">
+        <div class="col-md-8 blog-entries">
 
-          <h1 class="my-4">Page Heading
-            <small>Secondary Text</small>
+          <!-- Page Heading -->
+          <h1 class="my-4">STEEM Philippines
+            <small>Manila</small>
           </h1>
 
-          <!-- Blog Post -->
-          <div class="card mb-4">
-            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-            <div class="card-body">
-              <h2 class="card-title">Post Title</h2>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-              <a href="#/" class="btn btn-primary">Read More &rarr;</a>
+          <div class="row blog-entry" style="display: none">
+            <div class="col-md-4 blog-img-div">
+              <a href="#">
+                <img class="img-fluid rounded mb-3 mb-md-0 blog-image" src="https://steemitimages.com/256x512/https://res.cloudinary.com/hpiynhbhq/image/upload/v1521302155/wxbmoaf63tvl1byur7jz.png" alt="">
+              </a>
             </div>
-            <div class="card-footer text-muted">
-              Posted on January 1, 2017 by
-              <a href="#/">Start Bootstrap</a>
+            <div class="col-md-8 blog-details-div">
+              <h3 class="blog-title">Project One</h3>
+              <p class="blog-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
+              <a class="btn btn-primary blog-link" href="#">View Post</a>
             </div>
           </div>
+          <!-- /.row -->
 
-          <!-- Blog Post -->
-          <div class="card mb-4">
-            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-            <div class="card-body">
-              <h2 class="card-title">Post Title</h2>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-              <a href="#/" class="btn btn-primary">Read More &rarr;</a>
-            </div>
-            <div class="card-footer text-muted">
-              Posted on January 1, 2017 by
-              <a href="#/">Start Bootstrap</a>
-            </div>
-          </div>
-
-          <!-- Blog Post -->
-          <div class="card mb-4">
-            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-            <div class="card-body">
-              <h2 class="card-title">Post Title</h2>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-              <a href="#/" class="btn btn-primary">Read More &rarr;</a>
-            </div>
-            <div class="card-footer text-muted">
-              Posted on January 1, 2017 by
-              <a href="#/">Start Bootstrap</a>
-            </div>
-          </div>
+          <hr />
 
           <!-- Pagination -->
           <ul class="pagination justify-content-center mb-4">
@@ -137,12 +112,11 @@
               <div class="row">
                 <div class="col-lg-6">
                   <ul class="list-unstyled mb-0 user-list">
-                    <li><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a>eastmael</li>
-                    <li><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a>steemitph</li>
                   </ul>
                 </div>
               </div>
             </div>
+            <button type="button" class="btn btn-primary search">Search</button>
           </div>
 
           <!-- Date Widget -->
@@ -151,11 +125,12 @@
             <div class="card-body">
               <div class="form-inline">
                 <label class="sr-only" for="start-date">From:</label>
-                <input type="date" class="form-control" id="start-date" placeholder="start date" />
+                <input type="date" class="form-control" id="start-date" placeholder="start date" value="<?php echo date('Y-m-d'); ?>" />
                 <label class="sr-only" for="end-date">To:</label>
-                <input type="date" class="form-control" id="end-date" placeholder="end date" />
+                <input type="date" class="form-control" id="end-date" placeholder="end date" value="<?php echo date('Y-m-d'); ?>" />
               </div>
             </div>
+            <button type="button" class="btn btn-primary search">Search</button>
           </div>
 
           <!-- Tag Filter Widget -->
@@ -178,10 +153,9 @@
                   <input class="card-link" type="checkbox" id="contains-all-tags" /> contains all tags
                 </div>
               </div>
-            </div
+            </div>
+            <button type="button" class="btn btn-primary search">Search</button>
           </div>
-
-
 
         </div>
 
@@ -202,14 +176,80 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
+    <script src="js/remove-markdown.js"></script>
     <script>
+        steem.api.setOptions({ url: 'https://api.steemit.com/' });
         $(document).ready(function() {
+          $.getJSON('/get-users.php', 
+            { user : null }, 
+            function(data) {
+              console.log('get user success');
+              data.users.forEach((user, index) => {
+                $('.user-list').append('<li><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a>' + user + '</li>');
+              });
+            }
+          ).fail(function(error) {
+             console.log(error);
+          });
+
+          $('.search').on('click', function() {
+            const authors = [];
+            $('.user-list li').each(function() {
+              authors.push($(this).text());
+            });
+            console.log(authors);
+
+            const tags = [];
+            $('.tag-list li').each(function() {
+              tags.push($(this).text());
+            });
+            console.log(tags);
+
+            const dates = [$('#start-date').val(), $('#end-date').val()];
+            console.log(dates);
+            const datenow = new Date();
+
+            authors.forEach((author) => {
+              steem.api.getDiscussionsByAuthorBeforeDate(author, '', '2018-03-20T00:00:00', 10, function(err, result) {
+                console.log(err, result);
+                result.forEach((post) => {
+                  const postUrl = "https://steemit.com/" + post.url;
+                  const postBody = removeMarkdown(post.body).substring(0, 500);
+                  const metadata = JSON.parse(post.json_metadata);
+                  let imageUrl = '';
+                  if(metadata.links && metadata.links.length > 0) {
+                    imageUrl = metadata.links[0];
+                  }
+                  const div = `
+<div class="row blog-entry">
+  <div class="col-md-4 blog-img-div">
+    <a href="#">
+      <img class="img-fluid rounded mb-3 mb-md-0 blog-image" src="https://steemitimages.com/256x512/${imageUrl}" alt="">
+    </a>
+  </div>
+  <div class="col-md-8 blog-details-div">
+    <h5 class="blog-title">${post.root_title}</h3>
+    <p class="blog-author">Author: ${post.author} / Number of Words: xxx / Est. Reading Time: yy mins.</p>
+    <p class="blog-description">${postBody}</p>
+    <a class="btn btn-primary blog-link" href="${postUrl}">View Post</a>
+  </div>
+  </hr>
+</div>
+`;
+                  $(div).insertAfter('.blog-entry:last');
+                });
+              });
+            });
+
+          });
+        
           $('.add-user').on('click', function() {
             const newuser = $('#user').val();
 
             let hasDuplicate = false; 
             $('.user-list li').each(function() {
-              if ($(this).text() === newuser) {
+              if ($(this).text() === newuser || newuser === '') {
                 hasDuplicate = true;
                 return false;
               }
