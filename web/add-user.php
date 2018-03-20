@@ -9,7 +9,8 @@ fwrite($userList, $user);
 fclose($userList);
 
 $response = array(
-    'user' => $user
+    'user' => $user,
+    'userlist' => $userList
   );
 header('Content-type:application/json;charset=utf-8');
 echo json_encode($response);
