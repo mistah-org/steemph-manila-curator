@@ -7,7 +7,7 @@ $user = strtolower(urldecode($_GET["user"]));
 $filename = "./users/list";
 $fp = fopen($filename, 'r');
 $users = array();
-while (!feof($fp))
+while (!feof($fp)) {
   $line=fgets($fp);
   $line=trim($line);
   $users[]=$line;
