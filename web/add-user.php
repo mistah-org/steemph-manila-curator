@@ -17,7 +17,7 @@ fclose($fp);
 $unique_users = array_unique($users);
 $fp = fopen($filename, 'w') or die("Unable to open file!");
 foreach ($unique_users as $username) {
-  fwrite($fp, $username);
+  fwrite($fp, $username . PHP_EOL);
 }
 fclose($fp);
 

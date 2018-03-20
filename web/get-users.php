@@ -13,7 +13,7 @@ $users[]=$user;
 fclose($fp);
 
 $response = array(
-    'users' => $users
+    'users' => array_unique($users)
   );
 header('Content-type:application/json;charset=utf-8');
 echo json_encode($response);
