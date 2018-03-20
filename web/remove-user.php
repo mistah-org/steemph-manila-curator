@@ -13,7 +13,6 @@ while (!feof($fp)) {
     $users[]=$line;
   }
 }
-$users[]=$user;
 fclose($fp);
 
 $unique_users = array_unique($users);
