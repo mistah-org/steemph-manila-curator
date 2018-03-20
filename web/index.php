@@ -25,25 +25,25 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">Start Bootstrap</a>
+        <a class="navbar-brand" href="#/">Start Bootstrap</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home
+              <a class="nav-link" href="#/">Home
                 <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
+              <a class="nav-link" href="#/">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
+              <a class="nav-link" href="#/">Services</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+              <a class="nav-link" href="#/">Contact</a>
             </li>
           </ul>
         </div>
@@ -68,11 +68,11 @@
             <div class="card-body">
               <h2 class="card-title">Post Title</h2>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-              <a href="#" class="btn btn-primary">Read More &rarr;</a>
+              <a href="#/" class="btn btn-primary">Read More &rarr;</a>
             </div>
             <div class="card-footer text-muted">
               Posted on January 1, 2017 by
-              <a href="#">Start Bootstrap</a>
+              <a href="#/">Start Bootstrap</a>
             </div>
           </div>
 
@@ -82,11 +82,11 @@
             <div class="card-body">
               <h2 class="card-title">Post Title</h2>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-              <a href="#" class="btn btn-primary">Read More &rarr;</a>
+              <a href="#/" class="btn btn-primary">Read More &rarr;</a>
             </div>
             <div class="card-footer text-muted">
               Posted on January 1, 2017 by
-              <a href="#">Start Bootstrap</a>
+              <a href="#/">Start Bootstrap</a>
             </div>
           </div>
 
@@ -96,21 +96,21 @@
             <div class="card-body">
               <h2 class="card-title">Post Title</h2>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-              <a href="#" class="btn btn-primary">Read More &rarr;</a>
+              <a href="#/" class="btn btn-primary">Read More &rarr;</a>
             </div>
             <div class="card-footer text-muted">
               Posted on January 1, 2017 by
-              <a href="#">Start Bootstrap</a>
+              <a href="#/">Start Bootstrap</a>
             </div>
           </div>
 
           <!-- Pagination -->
           <ul class="pagination justify-content-center mb-4">
             <li class="page-item">
-              <a class="page-link" href="#">&larr; Older</a>
+              <a class="page-link" href="#/">&larr; Older</a>
             </li>
             <li class="page-item disabled">
-              <a class="page-link" href="#">Newer &rarr;</a>
+              <a class="page-link" href="#/">Newer &rarr;</a>
             </li>
           </ul>
 
@@ -129,7 +129,7 @@
                     <div class="input-group-text">@</div>
                   </div>
                   <input type="text" class="form-control" id="user" placeholder="Username">
-                  <a href="#" class="btn btn-primary add-user">
+                  <a href="#/" class="btn btn-primary add-user">
                     <span class="fas fa-plus-circle" aria-hidden="true"></span>
                   </a>
                 </div>
@@ -137,19 +137,51 @@
               <div class="row">
                 <div class="col-lg-6">
                   <ul class="list-unstyled mb-0 user-list">
+                    <li><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a>eastmael</li>
+                    <li><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a>steemitph</li>
                   </ul>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Side Widget -->
+          <!-- Date Widget -->
           <div class="card my-4">
-            <h5 class="card-header">Side Widget</h5>
+            <h5 class="card-header">Duration (default: today)</h5>
             <div class="card-body">
-              You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+              <div class="form-inline">
+                <label class="sr-only" for="start-date">From:</label>
+                <input type="date" class="form-control" id="start-date" placeholder="start date" />
+                <label class="sr-only" for="end-date">To:</label>
+                <input type="date" class="form-control" id="end-date" placeholder="end date" />
+              </div>
             </div>
           </div>
+
+          <!-- Tag Filter Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Tags</h5>
+            <div class="card-body">
+              <div class="form-row">
+                <div class="input-group">
+                  <input type="text" class="form-control" id="tag" placeholder="tag">
+                  <a href="#/" class="btn btn-primary add-tag">
+                    <span class="fas fa-plus-circle" aria-hidden="true"></span>
+                  </a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <ul class="list-unstyled mb-0 tag-list">
+                    <li><a href="#/"><span class="fas fa-times-circle remove-tag" aria-hidden="true"></span></a>steemph</li>
+                  </ul>
+                  <input class="card-link" type="checkbox" id="contains-all-tags" /> contains all tags
+                </div>
+              </div>
+            </div
+          </div>
+
+
 
         </div>
 
@@ -184,7 +216,7 @@
             });
 
             if (!hasDuplicate) {
-              $('.user-list').append('<li><a href="#"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a>' + newuser + '</li>');
+              $('.user-list').append('<li><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a>' + newuser + '</li>');
               $.getJSON('/add-user.php', 
                 { user : newuser }, 
                 function(data) {
@@ -211,6 +243,29 @@
             ).fail(function(error) {
                console.log(error);
             });
+          });
+
+          $('.add-tag').on('click', function() {
+            const newtag = $('#tag').val();
+
+            let hasDuplicate = false; 
+            $('.tag-list li').each(function() {
+              if ($(this).text() === newtag) {
+                hasDuplicate = true;
+                return false;
+              }
+            });
+
+            if (!hasDuplicate) {
+              $('.tag-list').append('<li><a href="#/"><span class="fas fa-times-circle remove-tag" aria-hidden="true"></span></a>' + newtag + '</li>');
+            }
+
+            $('#tag').val('');
+          });
+
+          $('.tag-list').on('click', '.remove-tag', function() {
+            const removeTag = $( this ).parents('li').text();
+            $('.tag-list li').filter(function() { return $.text([this]) === removeTag; }).remove();
           });
 
         });
