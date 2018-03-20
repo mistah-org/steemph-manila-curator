@@ -139,12 +139,12 @@
                   <ul class="list-unstyled mb-0 user-list">
                     <li>
                       <a href="#">
-                        <span class="fas fa-times-circle" aria-hidden="true"></span>
+                        <span class="fas fa-times-circle remove-user" aria-hidden="true"></span>
                       </a>eastmael
                     </li>
                     <li>
                       <a href="#">
-                        <span class="fas fa-times-circle" aria-hidden="true"></span>
+                        <span class="fas fa-times-circle remove-user" aria-hidden="true"></span>
                       </a>eastmael
                     </li>
                   </ul>
@@ -183,16 +183,31 @@
     <script>
         $(document).ready(function() {
           $('.add-user').on('click', function() {
-			 const newuser = $('#user').val();
-             $.getJSON('/add-user.php', 
-                { user : newuser }, 
-                function(data) {
-                    $('.user-list').append('<li><a href="#"><span class="fas fa-times-circle" aria-hidden="true"></span></a>' + newuser + '</li>');
-                }
-			).fail(function(error) {
+            const newuser = $('#user').val();
+            $.getJSON('/add-user.php', 
+              { user : newuser }, 
+              function(data) {
+                $('.user-list').append('<li><a href="#"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a>' + newuser + '</li>');
+              }
+            ).fail(function(error) {
                console.log(error);
             });
           });
+
+          $('.user-list').on('click', '.remove-user', function() {
+            const removeUser = $( this ).parent('a').text();
+            console.log( $( this ).parent('a').text() );
+            $(".user-list li:has('a'):contains('" + removeUser + "')").remove();
+            $.getJSON('/remove-user.php', 
+              { user : removeUser }, 
+              function(data) {
+                console.log(data);
+              }
+            ).fail(function(error) {
+               console.log(error);
+            });
+          });
+
         });
     </script>
   </body>
