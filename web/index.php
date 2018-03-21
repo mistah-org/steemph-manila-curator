@@ -110,7 +110,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                   <ul class="list-unstyled mb-0 user-list">
                   </ul>
                 </div>
@@ -220,41 +220,6 @@
 
                 const filtered_for_date = [];
                 result.forEach((post) => {
-                  if (post.created >= dates[0] && post.created <= dates[1]) {
-                    console.log(post.created);
-                    filtered_for_date.push(post);
-                  }
-                });
-                console.log('filtered_for_date: ' + filtered_for_date.length);
-
-                const filtered_for_tags = [];
-                filtered_for_date.forEach((post) => {
-                  const metadata = JSON.parse(post.json_metadata);
-                  console.log(metadata.tags);
-
-                  let containsTags = false;
-                  if ($('#contains-all-tags').is(':checked')) {
-                    tags.forEach(inputTag => {
-                      if (!metadata.tags.includes(inputTag)) {
-                        return false;
-                      };
-                    });
-                  } else {
-                    tags.forEach(inputTag => {
-                      if (metadata.tags.includes(inputTag)) {
-                        containsTags = true;
-                        return false;
-                      }
-                    });
-                  }
-
-                  if (containsTags) {
-                    filtered_for_tags.push(post);
-                  }
-                });
-                console.log('filtered_for_tags: ' + filtered_for_tags.length);
-
-                filtered_for_tags.forEach((post) => {
                   if (post.created >= dates[0] && post.created <= dates[1]) {
                     console.log(post.created);
                     filtered_for_date.push(post);
