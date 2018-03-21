@@ -210,7 +210,10 @@
             const contains_all_tags = $('#contains-all-tags').is(":checked");
             console.log(contains_all_tags);
 
-            const dates = [new Date($('#start-date').val()).toISOString().split('.')[0], new Date($('#end-date').val()).toISOString().split('.')[0]];
+            const endDate = new Date($('#end-date').val());
+            endDate.setDate(endDate.getDate() + 1);
+
+            const dates = [new Date($('#start-date').val()).toISOString().split('.')[0], endDate.toISOString().split('.')[0]];
             console.log(dates);
             const datenow = new Date();
 
@@ -220,7 +223,7 @@
 
                 const filtered_for_date = [];
                 result.forEach((post) => {
-                  if (post.created >= dates[0] && post.created <= dates[1]) {
+                  if (post.created >= dates[0] && post.created < dates[1]) {
                     console.log(post.created);
                     filtered_for_date.push(post);
                   }
