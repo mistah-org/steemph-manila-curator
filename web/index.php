@@ -184,7 +184,6 @@
           $.getJSON('/get-users.php', 
             { user : null }, 
             function(data) {
-              console.log('get user success');
               data.users.forEach((user, index) => {
                 $('.user-list').append('<li><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a>' + user + '</li>');
               });
@@ -199,16 +198,13 @@
             $('.user-list li').each(function() {
               authors.push($(this).text());
             });
-            console.log(authors);
 
             const tags = [];
             $('.tag-list li').each(function() {
               tags.push($(this).text());
             });
-            console.log(tags);
 
             const contains_all_tags = $('#contains-all-tags').is(":checked");
-            console.log(contains_all_tags);
 
             const endDate = new Date($('#end-date').val());
             endDate.setDate(endDate.getDate() + 1);
@@ -224,16 +220,13 @@
                 const filtered_for_date = [];
                 result.forEach((post) => {
                   if (post.created >= dates[0] && post.created < dates[1]) {
-                    console.log(post.created);
                     filtered_for_date.push(post);
                   }
                 });
-                console.log('filtered_for_date: ' + filtered_for_date.length);
 
                 const filtered_for_tags = [];
                 filtered_for_date.forEach((post) => {
                   const metadata = JSON.parse(post.json_metadata);
-                  console.log(metadata.tags);
 
                   let containsTags = false;
                   if ($('#contains-all-tags').is(':checked')) {
@@ -255,7 +248,7 @@
                     filtered_for_tags.push(post);
                   }
                 });
-                console.log('filtered_for_tags: ' + filtered_for_tags.length);
+                console.log('posts to display: ' + filtered_for_tags.length);
 
                 filtered_for_tags.forEach((post) => {
                   const postUrl = "https://steemit.com" + post.url;
@@ -304,8 +297,7 @@
               $.getJSON('/add-user.php', 
                 { user : newuser }, 
                 function(data) {
-                  console.log('added user success');
-                  console.log(data);
+                  // do nothing; add success
                 }
               ).fail(function(error) {
                  console.log(error);
@@ -321,8 +313,7 @@
             $.getJSON('/remove-user.php', 
               { user : removeUser }, 
               function(data) {
-                console.log('remove user success');
-                console.log(data);
+                // do nothing; remove success
               }
             ).fail(function(error) {
                console.log(error);
