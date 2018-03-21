@@ -270,10 +270,11 @@
                       return false;
                     }
                   });
-                  let imageUrl = '';
-                  if(metadata.links && metadata.links.length > 0) {
-                    imageUrl = metadata.links[0];
+                  let imageUrl = 'https://steemitimages.com/DQmSZhv3WuL4H6TfyBRtTVbK3mYpGqPFALyaPnFLitbaSiX/logos.png';
+                  if(metadata.image && metadata.image.length > 0) {
+                    imageUrl = metadata.image[0];
                   }
+                  console.log(imageUrl);
                   const div = `
 <div class="row blog-entry">
   <div class="col-md-4 blog-img-div">
