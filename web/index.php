@@ -192,6 +192,7 @@
           ).fail(function(error) {
              console.log(error);
           });
+          $('.blog-entry').not(':first').remove();
 
           $('.search').on('click', function() {
             const authors = [];
@@ -206,14 +207,54 @@
             });
             console.log(tags);
 
-            const dates = [$('#start-date').val(), $('#end-date').val()];
+            const contains_all_tags = $('#contains-all-tags').is(":checked");
+            console.log(contains_all_tags);
+
+            const dates = [new Date($('#start-date').val()).toISOString().split('.')[0], new Date($('#end-date').val()).toISOString().split('.')[0]];
             console.log(dates);
             const datenow = new Date();
 
             authors.forEach((author) => {
-              steem.api.getDiscussionsByAuthorBeforeDate(author, '', '2018-03-20T00:00:00', 10, function(err, result) {
+              steem.api.getDiscussionsByAuthorBeforeDate(author, '', dates[1], 10, function(err, result) {
                 console.log(err, result);
+
+                const filtered_for_date = [];
                 result.forEach((post) => {
+                  if (post.created >= dates[0] && post.created <= dates[1]) {
+                    console.log(post.created);
+                    filtered_for_date.push(post);
+                  }
+                });
+                console.log('filtered_for_date: ' + filtered_for_date.length);
+
+                const filtered_for_tags = [];
+                filtered_for_date.forEach((post) => {
+                  const metadata = JSON.parse(post.json_metadata);
+                  console.log(metadata.tags);
+
+                  let containsTags = false;
+                  if ($('#contains-all-tags').is(':checked')) {
+                    tags.forEach(inputTag => {
+                      if (!metadata.tags.includes(inputTag)) {
+                        return false;
+                      };
+                    });
+                  } else {
+                    tags.forEach(inputTag => {
+                      if (metadata.tags.includes(inputTag)) {
+                        containsTags = true;
+                        return false;
+                      }
+                    });
+                  }
+
+                  if (containsTags) {
+                    filtered_for_tags.push(post);
+                  }
+                });
+                console.log('filtered_for_tags: ' + filtered_for_tags.length);
+
+                filtered_for_tags.forEach((post) => {
                   const postUrl = "https://steemit.com/" + post.url;
                   const postBody = removeMarkdown(post.body).substring(0, 500);
                   const metadata = JSON.parse(post.json_metadata);
@@ -230,7 +271,7 @@
   </div>
   <div class="col-md-8 blog-details-div">
     <h5 class="blog-title">${post.root_title}</h3>
-    <p class="blog-author">Author: ${post.author} / Number of Words: xxx / Est. Reading Time: yy mins.</p>
+    <p class="blog-author">Author: ${post.author} / Created: ${post.created} / Number of Words: xxx / Est. Reading Time: yy mins.</p>
     <p class="blog-description">${postBody}</p>
     <a class="btn btn-primary blog-link" href="${postUrl}">View Post</a>
   </div>
