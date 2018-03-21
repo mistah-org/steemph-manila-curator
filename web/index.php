@@ -121,7 +121,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                   <div class="mb-0 tag-list">
                     <span class="badge badge-dark tag-item" style="margin-left: 2px"><a href="#/"><span class="fas fa-times-circle remove-tag" aria-hidden="true"></span></a><span style="margin-left: 2px">steemph</span></span>
                   </div>
@@ -206,7 +206,7 @@
             });
 
             const tags = [];
-            $('.tag-list .tag-item').each(function() {
+            $('.tag-item').each(function() {
               tags.push($(this).text());
             });
 
