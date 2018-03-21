@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog Home - Start Bootstrap Template</title>
+    <title>STEEM Philippines Manila - Curator Tool</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -25,24 +25,24 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#/">Start Bootstrap</a>
+        <a class="navbar-brand" href="/">STEEM Philippines</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#/">Home
+              <a class="nav-link" href="/">Home
                 <span class="sr-only">(current)</span>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="display: none">
               <a class="nav-link" href="#/">About</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="display: none">
               <a class="nav-link" href="#/">Services</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="display: none">
               <a class="nav-link" href="#/">Contact</a>
             </li>
           </ul>
@@ -80,7 +80,7 @@
           <hr />
 
           <!-- Pagination -->
-          <ul class="pagination justify-content-center mb-4">
+          <ul class="pagination justify-content-center mb-4" style="display: none">
             <li class="page-item">
               <a class="page-link" href="#/">&larr; Older</a>
             </li>
