@@ -1,6 +1,5 @@
 .env
 httpd.bat
-web/users/list
 web/phpinfo.php
 .project
 .settings/
