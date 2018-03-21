@@ -255,6 +255,41 @@
                 console.log('filtered_for_tags: ' + filtered_for_tags.length);
 
                 filtered_for_tags.forEach((post) => {
+                  if (post.created >= dates[0] && post.created <= dates[1]) {
+                    console.log(post.created);
+                    filtered_for_date.push(post);
+                  }
+                });
+                console.log('filtered_for_date: ' + filtered_for_date.length);
+
+                const filtered_for_tags = [];
+                filtered_for_date.forEach((post) => {
+                  const metadata = JSON.parse(post.json_metadata);
+                  console.log(metadata.tags);
+
+                  let containsTags = false;
+                  if ($('#contains-all-tags').is(':checked')) {
+                    tags.forEach(inputTag => {
+                      if (!metadata.tags.includes(inputTag)) {
+                        return false;
+                      };
+                    });
+                  } else {
+                    tags.forEach(inputTag => {
+                      if (metadata.tags.includes(inputTag)) {
+                        containsTags = true;
+                        return false;
+                      }
+                    });
+                  }
+
+                  if (containsTags) {
+                    filtered_for_tags.push(post);
+                  }
+                });
+                console.log('filtered_for_tags: ' + filtered_for_tags.length);
+
+                filtered_for_tags.forEach((post) => {
                   const postUrl = "https://steemit.com" + post.url;
                   const postBody = removeMarkdown(post.body).substring(0, 500);
                   const metadata = JSON.parse(post.json_metadata);
