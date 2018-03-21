@@ -122,9 +122,9 @@
               </div>
               <div class="row">
                 <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0 tag-list">
-                    <li><a href="#/"><span class="fas fa-times-circle remove-tag" aria-hidden="true"></span></a>steemph</li>
-                  </ul>
+                  <div class="mb-0 tag-list">
+                    <span class="badge badge-dark tag-item" style="margin-left: 2px"><a href="#/"><span class="fas fa-times-circle remove-tag" aria-hidden="true"></span></a><span style="margin-left: 2px">steemph</span></span>
+                  </div>
                   <input class="card-link" type="checkbox" id="contains-all-tags" /> contains all tags
                 </div>
               </div>
@@ -154,8 +154,8 @@
               </div>
               <div class="form-group">
                 <div class="input-group">
-                  <ul class="list-unstyled mb-0 user-list">
-                  </ul>
+                  <div class="mb-0 user-list">
+                  </div>
                 </div>
               </div>
             </div>
@@ -191,7 +191,7 @@
             { user : null }, 
             function(data) {
               data.users.forEach((user, index) => {
-                $('.user-list').append('<li><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a>' + user + '</li>');
+                $('.user-list').append('<span class="badge badge-dark user-item" style="margin-left: 2px"><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a><span style="margin-left: 2px">' + user + '</span></span>');
               });
             }
           ).fail(function(error) {
@@ -201,12 +201,12 @@
 
           $('.search').on('click', function() {
             const authors = [];
-            $('.user-list li').each(function() {
+            $('.user-item').each(function() {
               authors.push($(this).text());
             });
 
             const tags = [];
-            $('.tag-list li').each(function() {
+            $('.tag-list .tag-item').each(function() {
               tags.push($(this).text());
             });
 
@@ -308,7 +308,7 @@
             const newuser = $('#user').val();
 
             let hasDuplicate = false; 
-            $('.user-list li').each(function() {
+            $('.user-item').each(function() {
               if ($(this).text() === newuser || newuser === '') {
                 hasDuplicate = true;
                 return false;
@@ -316,7 +316,7 @@
             });
 
             if (!hasDuplicate) {
-              $('.user-list').append('<li><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a>' + newuser + '</li>');
+              $('.user-list').append('<span class="badge badge-dark user-item" style="margin-left: 2px"><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a><span style="margin-left: 2px">' + newuser + '</span></span>');
               $.getJSON('/add-user.php', 
                 { user : newuser }, 
                 function(data) {
@@ -331,8 +331,8 @@
           });
 
           $('.user-list').on('click', '.remove-user', function() {
-            const removeUser = $( this ).parents('li').text();
-            $('.user-list li').filter(function() { return $.text([this]) === removeUser; }).remove();
+            const removeUser = $( this ).parents('span.user-item').text();
+            $('.user-item').filter(function() { return $.text([this]) === removeUser; }).remove();
             $.getJSON('/remove-user.php', 
               { user : removeUser }, 
               function(data) {
@@ -347,7 +347,7 @@
             const newtag = $('#tag').val();
 
             let hasDuplicate = false; 
-            $('.tag-list li').each(function() {
+            $('.tag-list .tag-item').each(function() {
               if ($(this).text() === newtag) {
                 hasDuplicate = true;
                 return false;
@@ -355,15 +355,15 @@
             });
 
             if (!hasDuplicate) {
-              $('.tag-list').append('<li><a href="#/"><span class="fas fa-times-circle remove-tag" aria-hidden="true"></span></a>' + newtag + '</li>');
+              $('.tag-list').append('<span class="badge badge-dark tag-item" style="margin-left: 2px"><a href="#/"><span class="fas fa-times-circle remove-tag" aria-hidden="true"></span></a><span style="margin-left: 2px">' + newtag + '</span></span>');
             }
 
             $('#tag').val('');
           });
 
           $('.tag-list').on('click', '.remove-tag', function() {
-            const removeTag = $( this ).parents('li').text();
-            $('.tag-list li').filter(function() { return $.text([this]) === removeTag; }).remove();
+            const removeTag = $( this ).parents('.tag-item').text();
+            $('.tag-list .tag-item').filter(function() { return $.text([this]) === removeTag; }).remove();
           });
 
         });
