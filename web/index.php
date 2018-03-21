@@ -218,7 +218,7 @@
             const datenow = new Date();
 
             authors.forEach((author) => {
-              steem.api.getDiscussionsByAuthorBeforeDate(author, '', dates[1], 10, function(err, result) {
+              steem.api.getDiscussionsByAuthorBeforeDate(author, '', dates[1], 3, function(err, result) {
                 console.log(err, result);
 
                 const filtered_for_date = [];
