@@ -287,7 +287,7 @@
       <span class="badge badge-primary"><span class="fas fa-pencil-alt" aria-hidden="true"></span> ${post.author}</span>
       <span class="badge badge-primary"><span class="fas fa-calendar-alt" aria-hidden="true"></span> ${postCreated}</span>
       <span class="badge badge-primary"><span class="fas fa-book" aria-hidden="true"></span> ${wordCount} words</span>
-      <span class="badge badge-primary"><span class="fas fa-clock" aria-hidden="true"></span> ${estReadTime} mins.</span>
+      <span class="badge badge-primary"><span class="fas fa-clock" aria-hidden="true"></span> ${estReadTime < 0 ? 1 : estReadTime} ${ estReadTime > 1 ? 'minutes' : 'minute'}</span>
       <span class="badge badge-primary"><span class="fas fa-comments" aria-hidden="true"></span> ${post.children}</span>
       <span class="badge badge-success" style='display : ${alreadyCurated ? "" : "none"}'><span class="fas fa-check-circle" aria-hidden="true"></span></span>
     </p>
