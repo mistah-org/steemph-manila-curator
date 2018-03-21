@@ -94,35 +94,6 @@
         <!-- Sidebar Widgets Column -->
         <div class="col-md-4">
 
-          <!-- Search Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Authors</h5>
-            <div class="card-body">
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">@</div>
-                  </div>
-                  <input type="text" class="form-control" id="user" placeholder="Username">
-                  <a href="#/" class="btn btn-primary add-user">
-                    <span class="fas fa-plus-circle" aria-hidden="true"></span>
-                  </a>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="input-group">
-                  <button type="button" class="btn btn-primary btn-block search">Search</button>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="input-group">
-                  <ul class="list-unstyled mb-0 user-list">
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <!-- Date Widget -->
           <div class="card my-4">
             <h5 class="card-header">Duration (default: today)</h5>
@@ -159,6 +130,35 @@
               </div>
             </div>
             <button type="button" class="btn btn-primary search">Search</button>
+          </div>
+
+          <!-- Search Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Authors</h5>
+            <div class="card-body">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">@</div>
+                  </div>
+                  <input type="text" class="form-control" id="user" placeholder="Username">
+                  <a href="#/" class="btn btn-primary add-user">
+                    <span class="fas fa-plus-circle" aria-hidden="true"></span>
+                  </a>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <button type="button" class="btn btn-primary btn-block search">Search</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <ul class="list-unstyled mb-0 user-list">
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
