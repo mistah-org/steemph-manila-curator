@@ -98,7 +98,7 @@
           <div class="card my-4">
             <h5 class="card-header">Authors</h5>
             <div class="card-body">
-              <div class="form-row">
+              <div class="form-group">
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <div class="input-group-text">@</div>
@@ -109,14 +109,18 @@
                   </a>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-lg-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <button type="button" class="btn btn-primary btn-block search">Search</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
                   <ul class="list-unstyled mb-0 user-list">
                   </ul>
                 </div>
               </div>
             </div>
-            <button type="button" class="btn btn-primary search">Search</button>
           </div>
 
           <!-- Date Widget -->
@@ -254,6 +258,14 @@
                   const postUrl = "https://steemit.com" + post.url;
                   const postBody = removeMarkdown(post.body).substring(0, 500);
                   const metadata = JSON.parse(post.json_metadata);
+                  const postCreated = post.created.split('T')[0];
+                  let alreadyCurated = false;
+                  post.active_votes.forEach(vote => {
+                    if(vote.voter === 'steemph.manila') {
+                      alreadyCurated = true;
+                      return false;
+                    }
+                  });
                   let imageUrl = '';
                   if(metadata.links && metadata.links.length > 0) {
                     imageUrl = metadata.links[0];
@@ -267,9 +279,16 @@
   </div>
   <div class="col-md-8 blog-details-div">
     <h5 class="blog-title">${post.root_title}</h3>
-    <p class="blog-author">Author: ${post.author} / Created: ${post.created} / Number of Words: xxx / Est. Reading Time: yy mins.</p>
-    <p class="blog-description">${postBody}</p>
-    <a class="btn btn-primary blog-link" href="${postUrl}">View Post</a>
+    <p class="blog-author">
+      <span class="badge badge-primary"><span class="fas fa-pencil-alt" aria-hidden="true"></span> ${post.author}</span>
+      <span class="badge badge-primary"><span class="fas fa-calendar-alt" aria-hidden="true"></span> ${postCreated}</span>
+      <span class="badge badge-primary"><span class="fas fa-book" aria-hidden="true"></span> xxx words</span>
+      <span class="badge badge-primary"><span class="fas fa-clock" aria-hidden="true"></span> yy mins.</span>
+      <span class="badge badge-primary"><span class="fas fa-comments" aria-hidden="true"></span> ${post.children}</span>
+      <span class="badge badge-success" style='display : ${alreadyCurated ? "" : "none"}'><span class="fas fa-check-circle" aria-hidden="true"></span></span>
+    </p>
+    <p class="blog-description">${postBody} ...</p>
+    <a class="btn btn-primary blog-link" href="${postUrl}" target="_blank">View Post</a>
   </div>
   </hr>
 </div>
