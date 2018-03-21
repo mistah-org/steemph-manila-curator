@@ -182,6 +182,8 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
     <script src="js/remove-markdown.js"></script>
+    <script src="js/coutwords.js"></script>
+
     <script>
         steem.api.setOptions({ url: 'https://api.steemit.com/' });
         $(document).ready(function() {
@@ -256,7 +258,8 @@
 
                 filtered_for_tags.forEach((post) => {
                   const postUrl = "https://steemit.com" + post.url;
-                  const postBody = removeMarkdown(post.body).substring(0, 500);
+                  const postBody = removeMarkdown(post.body);
+                  const wordCount = countWords(postBody);
                   const metadata = JSON.parse(post.json_metadata);
                   const postCreated = post.created.split('T')[0];
                   let alreadyCurated = false;
@@ -282,12 +285,12 @@
     <p class="blog-author">
       <span class="badge badge-primary"><span class="fas fa-pencil-alt" aria-hidden="true"></span> ${post.author}</span>
       <span class="badge badge-primary"><span class="fas fa-calendar-alt" aria-hidden="true"></span> ${postCreated}</span>
-      <span class="badge badge-primary"><span class="fas fa-book" aria-hidden="true"></span> xxx words</span>
+      <span class="badge badge-primary"><span class="fas fa-book" aria-hidden="true"></span> ${wordCount} words</span>
       <span class="badge badge-primary"><span class="fas fa-clock" aria-hidden="true"></span> yy mins.</span>
       <span class="badge badge-primary"><span class="fas fa-comments" aria-hidden="true"></span> ${post.children}</span>
       <span class="badge badge-success" style='display : ${alreadyCurated ? "" : "none"}'><span class="fas fa-check-circle" aria-hidden="true"></span></span>
     </p>
-    <p class="blog-description">${postBody} ...</p>
+    <p class="blog-description">${postBody.substring(0, 500)} ...</p>
     <a class="btn btn-primary blog-link" href="${postUrl}" target="_blank">View Post</a>
   </div>
   </hr>
