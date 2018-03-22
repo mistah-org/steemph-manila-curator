@@ -1,5 +1,5 @@
 function filterPostsUsingTags(posts, tags) {
-	const filtered_for_tags = [];
+  const filtered_for_tags = [];
   posts.forEach((post) => {
     const metadata = JSON.parse(post.json_metadata);
 
