@@ -24,6 +24,15 @@ body {
   margin-bottom: 5px;
 }
 
+.valid-feedback.feedback-icon,
+.invalid-feedback.feedback-icon {
+    position: absolute;
+    width: auto;
+    bottom: 10px;
+    right: 55px;
+    margin-top: 0;
+}
+
 @media (min-width: 992px) {
   body {
     padding-top: 56px;

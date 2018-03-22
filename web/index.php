@@ -157,15 +157,21 @@
                   <button type="button" class="btn btn-primary btn-block search">Search</button>
                 </div>
               </div>
-              <div class="form-group">
+              <div class="form-group  position-relative">
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <div class="input-group-text">@</div>
                   </div>
-                  <input type="text" class="form-control" id="user" placeholder="Username">
+                  <input type="text" class="form-control is-invalid" id="user" placeholder="username">
                   <a href="#/" class="btn btn-primary add-user">
                     <span class="fas fa-plus-circle" aria-hidden="true"></span>
                   </a>
+                  <div class="valid-feedback feedback-icon">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <div class="invalid-feedback feedback-icon">
+                    <i class="fa fa-times"></i>
+                  </div>
                 </div>
               </div>
               <div class="form-group">
