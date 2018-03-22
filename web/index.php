@@ -110,7 +110,7 @@
                   <label>Has more than</label>
                 </div>
                 <div class="col-3">
-                  <input type="number" class="form-control" style="font-size: 14px" placeholder="Word Count" value="300">
+                  <input type="number" class="form-control" style="font-size: 14px" placeholder="Word Count" value="300" id="min-word-count">
                 </div>
                 <div class="col-auto">
                   <label>words</label>
@@ -122,7 +122,7 @@
                   <label>Includes at least</label>
                 </div>
                 <div class="col-3">
-                  <input type="number" class="form-control" style="font-size: 14px" placeholder="Image Count" value="3">
+                  <input type="number" class="form-control" style="font-size: 14px" placeholder="Image Count" value="3" id="min-img-count">
                 </div>
                 <div class="col-auto">
                   <label>images</label>
@@ -224,12 +224,14 @@
               authors.push($(this).text());
             });
 
-            const tags = [];
+            const tagsFilter = [];
             $('.tag-item').each(function() {
-              tags.push($(this).text());
+              tagsFilter.push($(this).text());
             });
 
             const contains_all_tags = $('#contains-all-tags').is(":checked");
+            const minWordCnt = $('#min-word-count').val();
+            const minImgCnt = $('#min-img-count').val();
 
             const endDate = new Date($('#end-date').val());
             endDate.setDate(endDate.getDate() + 1);
@@ -243,16 +245,33 @@
                 console.log(err, result);
 
                 const filtered_for_date = [];
-                result.forEach((post) => {
+                result.forEach(post => {
                   if (post.created >= dates[0] && post.created < dates[1]) {
                     filtered_for_date.push(post);
                   }
                 });
 
-                const filtered_for_tags = filterPostsUsingTags(filtered_for_date, tags);
-                console.log(`posts to display (${author}): ` + filtered_for_tags.length);
+                const filtered_for_word_count = [];
+                filtered_for_date.forEach(post => {
+                  const postBody = removeMarkdown(post.body);
+                  const wordCount = countWords(postBody);
+                  if (wordCount >= minWordCnt) {
+                    filtered_for_word_count.push(post);
+                  }
+                });
 
-                filtered_for_tags.forEach(post => {
+                const filtered_for_image_count = [];
+                filtered_for_word_count.forEach(post => {
+                  const metadata = JSON.parse(post.json_metadata);
+                  if(metadata.image && metadata.image.length >= minImgCnt) {
+                    filtered_for_image_count.push(post);
+                  }
+                });
+
+                const finalPostList = filterPostsUsingTags(filtered_for_image_count, tagsFilter);
+                console.log(`posts to display (${author}): ` + finalPostList.length);
+
+                finalPostList.forEach(post => {
                   const div = createBlogEntry(post);
                   $(div).insertAfter('.blog-entry:last');
                 });
