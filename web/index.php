@@ -77,8 +77,6 @@
           </div>
           <!-- /.row -->
 
-          <hr />
-
           <!-- Pagination -->
           <ul class="pagination justify-content-center mb-4" style="display: none">
             <li class="page-item">
