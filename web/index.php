@@ -77,8 +77,6 @@
           </div>
           <!-- /.row -->
 
-          <hr />
-
           <!-- Pagination -->
           <ul class="pagination justify-content-center mb-4" style="display: none">
             <li class="page-item">
@@ -94,24 +92,42 @@
         <!-- Sidebar Widgets Column -->
         <div class="col-md-4">
 
-          <!-- Date Widget -->
           <div class="card my-4">
-            <h5 class="card-header">Duration (default: today)</h5>
+            <h5 class="card-header">Search</h5>
             <div class="card-body">
-              <div class="form-inline">
-                <label class="sr-only" for="start-date">From:</label>
-                <input type="date" class="form-control" id="start-date" placeholder="start date" value="<?php echo date('Y-m-d'); ?>" />
-                <label class="sr-only" for="end-date">To:</label>
-                <input type="date" class="form-control" id="end-date" placeholder="end date" value="<?php echo date('Y-m-d'); ?>" />
+              <div class="form-row">
+                <div class="col-sm-6 my-1">
+                  <input type="date" class="form-control" style="font-size: 14px"
+                    id="start-date" placeholder="Start Date" value="<?php echo date('Y-m-d'); ?>" />
+                </div>
+                <div class="col-sm-6 my-1">
+                  <input type="date" class="form-control" style="font-size: 14px"
+                    id="end-date" placeholder="End Date" value="<?php echo date('Y-m-d'); ?>" />
+                </div>
               </div>
-            </div>
-            <button type="button" class="btn btn-primary search">Search</button>
-          </div>
+              <div class="form-row">
+                <div class="col-auto">
+                  <label>Has more than</label>
+                </div>
+                <div class="col-3">
+                  <input type="number" class="form-control" style="font-size: 14px" placeholder="Word Count" value="300" id="min-word-count">
+                </div>
+                <div class="col-auto">
+                  <label>words</label>
+                </div>
+              </div>
 
-          <!-- Tag Filter Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Tags</h5>
-            <div class="card-body">
+              <div class="form-row">
+                <div class="col-auto">
+                  <label>Includes at least</label>
+                </div>
+                <div class="col-3">
+                  <input type="number" class="form-control" style="font-size: 14px" placeholder="Image Count" value="3" id="min-img-count">
+                </div>
+                <div class="col-auto">
+                  <label>images</label>
+                </div>
+              </div>
               <div class="form-row">
                 <div class="input-group">
                   <input type="text" class="form-control" id="tag" placeholder="tag">
@@ -138,6 +154,11 @@
             <div class="card-body">
               <div class="form-group">
                 <div class="input-group">
+                  <button type="button" class="btn btn-primary btn-block search">Search</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
                   <div class="input-group-prepend">
                     <div class="input-group-text">@</div>
                   </div>
@@ -145,11 +166,6 @@
                   <a href="#/" class="btn btn-primary add-user">
                     <span class="fas fa-plus-circle" aria-hidden="true"></span>
                   </a>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="input-group">
-                  <button type="button" class="btn btn-primary btn-block search">Search</button>
                 </div>
               </div>
               <div class="form-group">
@@ -208,12 +224,14 @@
               authors.push($(this).text());
             });
 
-            const tags = [];
+            const tagsFilter = [];
             $('.tag-item').each(function() {
-              tags.push($(this).text());
+              tagsFilter.push($(this).text());
             });
 
             const contains_all_tags = $('#contains-all-tags').is(":checked");
+            const minWordCnt = $('#min-word-count').val();
+            const minImgCnt = $('#min-img-count').val();
 
             const endDate = new Date($('#end-date').val());
             endDate.setDate(endDate.getDate() + 1);
@@ -227,16 +245,33 @@
                 console.log(err, result);
 
                 const filtered_for_date = [];
-                result.forEach((post) => {
+                result.forEach(post => {
                   if (post.created >= dates[0] && post.created < dates[1]) {
                     filtered_for_date.push(post);
                   }
                 });
 
-                const filtered_for_tags = filterPostsUsingTags(filtered_for_date, tags);
-                console.log(`posts to display (${author}): ` + filtered_for_tags.length);
+                const filtered_for_word_count = [];
+                filtered_for_date.forEach(post => {
+                  const postBody = removeMarkdown(post.body);
+                  const wordCount = countWords(postBody);
+                  if (wordCount >= minWordCnt) {
+                    filtered_for_word_count.push(post);
+                  }
+                });
 
-                filtered_for_tags.forEach(post => {
+                const filtered_for_image_count = [];
+                filtered_for_word_count.forEach(post => {
+                  const metadata = JSON.parse(post.json_metadata);
+                  if(metadata.image && metadata.image.length >= minImgCnt) {
+                    filtered_for_image_count.push(post);
+                  }
+                });
+
+                const finalPostList = filterPostsUsingTags(filtered_for_image_count, tagsFilter);
+                console.log(`posts to display (${author}): ` + finalPostList.length);
+
+                finalPostList.forEach(post => {
                   const div = createBlogEntry(post);
                   $(div).insertAfter('.blog-entry:last');
                 });
