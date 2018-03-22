@@ -183,6 +183,8 @@
     <script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
     <script src="js/remove-markdown.js"></script>
     <script src="js/coutwords.js"></script>
+    <script src="js/posts-filter.js"></script>
+    <script src="js/post-util.js"></script>
 
     <script>
         steem.api.setOptions({ url: 'https://api.steemit.com/' });
@@ -200,6 +202,7 @@
           $('.blog-entry').not(':first').remove();
 
           $('.search').on('click', function() {
+            $('.blog-entry').not(':first').remove();
             const authors = [];
             $('.user-item').each(function() {
               authors.push($(this).text());
@@ -219,7 +222,7 @@
             console.log(dates);
             const datenow = new Date();
 
-            authors.forEach((author) => {
+            authors.forEach(author => {
               steem.api.getDiscussionsByAuthorBeforeDate(author, '', dates[1], 3, function(err, result) {
                 console.log(err, result);
 
@@ -230,78 +233,15 @@
                   }
                 });
 
-                const filtered_for_tags = [];
-                filtered_for_date.forEach((post) => {
-                  const metadata = JSON.parse(post.json_metadata);
+                const filtered_for_tags = filterPostsUsingTags(filtered_for_date, tags);
+                console.log(`posts to display (${author}): ` + filtered_for_tags.length);
 
-                  let containsTags = false;
-                  if ($('#contains-all-tags').is(':checked')) {
-                    tags.forEach(inputTag => {
-                      if (!metadata.tags.includes(inputTag)) {
-                        return false;
-                      };
-                    });
-                  } else {
-                    tags.forEach(inputTag => {
-                      if (metadata.tags.includes(inputTag)) {
-                        containsTags = true;
-                        return false;
-                      }
-                    });
-                  }
-
-                  if (containsTags) {
-                    filtered_for_tags.push(post);
-                  }
-                });
-                console.log('posts to display: ' + filtered_for_tags.length);
-
-                filtered_for_tags.forEach((post) => {
-                  const postUrl = "https://steemit.com" + post.url;
-                  const postBody = removeMarkdown(post.body);
-                  const wordCount = countWords(postBody);
-                  const estReadTime = parseFloat(Math.round(wordCount / 200)).toFixed(0);
-                  const metadata = JSON.parse(post.json_metadata);
-                  const postCreated = post.created.split('T')[0];
-                  let alreadyCurated = false;
-                  post.active_votes.forEach(vote => {
-                    if(vote.voter === 'steemph.manila') {
-                      alreadyCurated = true;
-                      return false;
-                    }
-                  });
-                  let imageUrl = 'https://steemitimages.com/DQmSZhv3WuL4H6TfyBRtTVbK3mYpGqPFALyaPnFLitbaSiX/logos.png';
-                  if(metadata.image && metadata.image.length > 0) {
-                    imageUrl = metadata.image[0];
-                  }
-                  console.log(imageUrl);
-                  const div = `
-<div class="row blog-entry">
-  <div class="col-md-4 blog-img-div">
-    <a href="#">
-      <img class="img-fluid rounded mb-3 mb-md-0 blog-image" src="https://steemitimages.com/256x512/${imageUrl}" alt="">
-    </a>
-  </div>
-  <div class="col-md-8 blog-details-div">
-    <h5 class="blog-title">${post.root_title}</h3>
-    <p class="blog-author">
-      <span class="badge badge-primary"><span class="fas fa-pencil-alt" aria-hidden="true"></span> ${post.author}</span>
-      <span class="badge badge-primary"><span class="fas fa-calendar-alt" aria-hidden="true"></span> ${postCreated}</span>
-      <span class="badge badge-primary"><span class="fas fa-book" aria-hidden="true"></span> ${wordCount} words</span>
-      <span class="badge badge-primary"><span class="fas fa-clock" aria-hidden="true"></span> ${estReadTime <= 0 ? 1 : estReadTime} ${ estReadTime > 1 ? 'minutes' : 'minute'}</span>
-      <span class="badge badge-primary"><span class="fas fa-comments" aria-hidden="true"></span> ${post.children}</span>
-      <span class="badge badge-success" style='display : ${alreadyCurated ? "" : "none"}'><span class="fas fa-check-circle" aria-hidden="true"></span></span>
-    </p>
-    <p class="blog-description">${postBody.substring(0, 500)} ...</p>
-    <a class="btn btn-primary blog-link" href="${postUrl}" target="_blank">View Post</a>
-  </div>
-  </hr>
-</div>
-`;
+                filtered_for_tags.forEach(post => {
+                  const div = createBlogEntry(post);
                   $(div).insertAfter('.blog-entry:last');
                 });
               });
-            });
+            }); <!-- authors.forEach -->
 
           });
         
