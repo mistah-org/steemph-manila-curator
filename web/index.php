@@ -94,24 +94,42 @@
         <!-- Sidebar Widgets Column -->
         <div class="col-md-4">
 
-          <!-- Date Widget -->
           <div class="card my-4">
-            <h5 class="card-header">Duration (default: today)</h5>
+            <h5 class="card-header">Search</h5>
             <div class="card-body">
-              <div class="form-inline">
-                <label class="sr-only" for="start-date">From:</label>
-                <input type="date" class="form-control" id="start-date" placeholder="start date" value="<?php echo date('Y-m-d'); ?>" />
-                <label class="sr-only" for="end-date">To:</label>
-                <input type="date" class="form-control" id="end-date" placeholder="end date" value="<?php echo date('Y-m-d'); ?>" />
+              <div class="form-row">
+                <div class="col-sm-6 my-1">
+                  <input type="date" class="form-control" style="font-size: 14px"
+                    id="start-date" placeholder="Start Date" value="<?php echo date('Y-m-d'); ?>" />
+                </div>
+                <div class="col-sm-6 my-1">
+                  <input type="date" class="form-control" style="font-size: 14px"
+                    id="end-date" placeholder="End Date" value="<?php echo date('Y-m-d'); ?>" />
+                </div>
               </div>
-            </div>
-            <button type="button" class="btn btn-primary search">Search</button>
-          </div>
+              <div class="form-row">
+                <div class="col-auto">
+                  <label>Has more than</label>
+                </div>
+                <div class="col-3">
+                  <input type="number" class="form-control" style="font-size: 14px" placeholder="Word Count" value="300">
+                </div>
+                <div class="col-auto">
+                  <label>words</label>
+                </div>
+              </div>
 
-          <!-- Tag Filter Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Tags</h5>
-            <div class="card-body">
+              <div class="form-row">
+                <div class="col-auto">
+                  <label>Includes at least</label>
+                </div>
+                <div class="col-3">
+                  <input type="number" class="form-control" style="font-size: 14px" placeholder="Image Count" value="3">
+                </div>
+                <div class="col-auto">
+                  <label>images</label>
+                </div>
+              </div>
               <div class="form-row">
                 <div class="input-group">
                   <input type="text" class="form-control" id="tag" placeholder="tag">
