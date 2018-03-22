@@ -154,6 +154,11 @@
             <div class="card-body">
               <div class="form-group">
                 <div class="input-group">
+                  <button type="button" class="btn btn-primary btn-block search">Search</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
                   <div class="input-group-prepend">
                     <div class="input-group-text">@</div>
                   </div>
@@ -161,11 +166,6 @@
                   <a href="#/" class="btn btn-primary add-user">
                     <span class="fas fa-plus-circle" aria-hidden="true"></span>
                   </a>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="input-group">
-                  <button type="button" class="btn btn-primary btn-block search">Search</button>
                 </div>
               </div>
               <div class="form-group">
