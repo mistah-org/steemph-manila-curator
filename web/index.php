@@ -157,22 +157,23 @@
                   <button type="button" class="btn btn-primary btn-block search">Search</button>
                 </div>
               </div>
-              <div class="form-group  position-relative">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">@</div>
+              <div>
+                <div class="form-row">
+                  <div class="form-group col position-relative">
+                    <input type="text" class="form-control" id="user" placeholder="username">
+                    <div class="valid-feedback feedback-icon">
+                      <i class="fa fa-check" id="validIcon"></i>
+                    </div>
+                    <div class="invalid-feedback feedback-icon">
+                      <i class="fa fa-times"></i>
+                    </div>
                   </div>
-                  <input type="text" class="form-control is-invalid" id="user" placeholder="username">
-                  <a href="#/" class="btn btn-primary add-user">
-                    <span class="fas fa-plus-circle" aria-hidden="true"></span>
-                  </a>
-                  <div class="valid-feedback feedback-icon">
-                    <i class="fa fa-check"></i>
+                  <div class="form-group col-auto">
+                    <a href="#/" class="btn btn-primary float-right add-user">
+                      <span class="fas fa-plus-circle" aria-hidden="true"></span>
+                    </a>
                   </div>
-                  <div class="invalid-feedback feedback-icon">
-                    <i class="fa fa-times"></i>
-                  </div>
-                </div>
+                </div> <!-- form-row -->
               </div>
               <div class="form-group">
                 <div class="input-group">
@@ -346,6 +347,26 @@
           $('.tag-list').on('click', '.remove-tag', function() {
             const removeTag = $( this ).parents('.tag-item').text();
             $('.tag-list .tag-item').filter(function() { return $.text([this]) === removeTag; }).remove();
+          });
+
+          $('#user').on('keyup', function() {
+            const $userInput = $(this);
+            const userArr = [$userInput.val()];
+            if ($userInput.val()) {
+
+              // display spinner
+              $userInput.removeClass('is-invalid').addClass('is-valid');
+              $('#validIcon').removeClass('fa-check').addClass('fa-spinner fa-spin');
+
+              steem.api.getAccounts(userArr, function(err, result) {
+                if (result && result.length > 0) {
+                  console.log(result);
+                  $('#validIcon').removeClass('fa-spinner fa-spin').addClass('fa-check');
+                } else {
+                  $userInput.removeClass('is-valid').addClass('is-invalid');
+                }
+              });
+            }
           });
 
         });
