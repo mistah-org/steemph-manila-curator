@@ -2,7 +2,15 @@
 <html lang="en">
 
   <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116287003-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-116287003-1');
+</script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -152,11 +160,6 @@
           <div class="card my-4">
             <h5 class="card-header">Authors</h5>
             <div class="card-body">
-              <div class="form-group">
-                <div class="input-group">
-                  <button type="button" class="btn btn-primary btn-block search">Search</button>
-                </div>
-              </div>
               <div>
                 <div class="form-row">
                   <div class="form-group col position-relative">
