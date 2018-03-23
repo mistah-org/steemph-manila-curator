@@ -305,7 +305,7 @@
                 url: '/add-user.php', 
                 data: { user : newuser }
               })
-              .done(function(response) {
+              .done(response => {
                   // do nothing; add success
                  console.log('add-user success');
                  console.log(response);
@@ -322,12 +322,15 @@
           $('.user-list').on('click', '.remove-user', function() {
             const removeUser = $( this ).parents('span.user-item').text();
             $('.user-item').filter(function() { return $.text([this]) === removeUser; }).remove();
-            $.getJSON('/remove-user.php', 
-              { user : removeUser }, 
-              function(data) {
+            $.ajax({
+              method: 'POST',
+              url: '/remove-user.php', 
+              data: { user : removeUser }, 
+            })
+            .done(response => {
                 // do nothing; remove success
-              }
-            ).fail(function(error) {
+            })
+            .fail(error => {
                console.log(error);
             });
           });
