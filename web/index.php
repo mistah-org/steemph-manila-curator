@@ -33,7 +33,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="/">STEEM Philippines</a>
+        <a class="navbar-brand" href="/">STEEM Philippines Curation Tool</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -70,6 +70,14 @@
           <h1 class="my-4">STEEM Philippines
             <small>Manila</small>
           </h1>
+          <div class="row">
+            <div class="col text-center">
+              <h1>
+                <span class="fa fa-sync-alt fa-spin" id="loading" style="display: none"></span>
+                <span id="search-error" style="display: none">No posts found</span>
+              </h1>
+            </div>
+          </div>
 
           <div class="row blog-entry" style="display: none">
             <div class="col-md-4 blog-img-div">
@@ -213,6 +221,16 @@
     <script src="js/post-util.js"></script>
 
     <script>
+        var callCounter = 0;
+        function decrementCounter() {
+          callCounter = callCounter - 1;
+          console.log(callCounter);
+          if (callCounter === 0) {
+            $('#loading').hide();
+            if ($(".blog-entry").length <= 1) $("#search-error").show();
+          }
+        }
+
         steem.api.setOptions({ url: 'https://api.steemit.com/' });
         $(document).ready(function() {
           $.getJSON('/api/get-users.php', 
@@ -228,6 +246,9 @@
           $('.blog-entry').not(':first').remove();
 
           $('.search').on('click', function() {
+            $('#loading').show();
+            $("#search-error").hide()
+          
             $('.blog-entry').not(':first').remove();
             const authors = [];
             $('.user-item').each(function() {
@@ -249,6 +270,8 @@
             const dates = [new Date($('#start-date').val()).toISOString().split('.')[0], endDate.toISOString().split('.')[0]];
             console.log(dates);
             const datenow = new Date();
+
+            callCounter = authors.length;
 
             authors.forEach(author => {
               steem.api.getDiscussionsByAuthorBeforeDate(author, '', dates[1], 3, function(err, result) {
@@ -285,6 +308,8 @@
                   const div = createBlogEntry(post);
                   $(div).insertAfter('.blog-entry:last');
                 });
+
+                decrementCounter();
               });
             }); <!-- authors.forEach -->
 
