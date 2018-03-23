@@ -286,9 +286,9 @@
             }); <!-- authors.forEach -->
 
           });
-        
+
           $('.add-user').on('click', function() {
-            const newuser = $('#user').val();
+            const newuser = $('#user').val().trim();
 
             let hasDuplicate = false; 
             $('.user-item').each(function() {
@@ -300,17 +300,23 @@
 
             if (!hasDuplicate) {
               $('.user-list').append('<span class="badge badge-dark user-item" style="margin-left: 2px"><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a><span style="margin-left: 2px">' + newuser + '</span></span>');
-              $.getJSON('/add-user.php', 
-                { user : newuser }, 
-                function(data) {
+              $.ajax({
+                method: 'POST',
+                url: '/add-user.php', 
+                data: { user : newuser }
+              })
+              .done(function(response) {
                   // do nothing; add success
-                }
-              ).fail(function(error) {
+                 console.log('add-user success');
+                 console.log(response);
+              })
+              .fail(function(error) {
                  console.log(error);
               });
             }
 
             $('#user').val('');
+            $('#user').removeClass('is-valid');
           });
 
           $('.user-list').on('click', '.remove-user', function() {
@@ -349,24 +355,31 @@
             $('.tag-list .tag-item').filter(function() { return $.text([this]) === removeTag; }).remove();
           });
 
-          $('#user').on('keyup', function() {
-            const $userInput = $(this);
-            const userArr = [$userInput.val()];
-            if ($userInput.val()) {
+          /** ########## For user validation  ############## **/
+          var typingTimer = null;
+          $('#user').keypress(function(e) {
+            clearTimeout(typingTimer);
 
-              // display spinner
-              $userInput.removeClass('is-invalid').addClass('is-valid');
-              $('#validIcon').removeClass('fa-check').addClass('fa-spinner fa-spin');
+            // display spinner
+            $(this).removeClass('is-invalid').addClass('is-valid');
+            $('#validIcon').removeClass('fa-check').addClass('fa-spinner fa-spin');
 
-              steem.api.getAccounts(userArr, function(err, result) {
-                if (result && result.length > 0) {
-                  console.log(result);
-                  $('#validIcon').removeClass('fa-spinner fa-spin').addClass('fa-check');
-                } else {
-                  $userInput.removeClass('is-valid').addClass('is-invalid');
-                }
-              });
-            }
+            // call steem API for user existence check
+            typingTimer = setTimeout(function() {
+              const $userInput = $('#user');
+              const userArr = [$userInput.val()];
+
+              if ($userInput.val()) {
+                steem.api.getAccounts(userArr, function(err, result) {
+                  if (result && result.length > 0) {
+                    console.log(result);
+                    $('#validIcon').removeClass('fa-spinner fa-spin').addClass('fa-check');
+                  } else {
+                    $userInput.removeClass('is-valid').addClass('is-invalid');
+                  }
+                });
+              }
+            }, 1000);
           });
 
         });
