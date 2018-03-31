@@ -4,6 +4,7 @@ function createBlogEntry(post) {
   const wordCount = countWords(postBody);
   const estReadTime = parseFloat(Math.round(wordCount / 200)).toFixed(0);
   const metadata = JSON.parse(post.json_metadata);
+  const imgCnt = metadata.image ? metadata.image.length : 0;
   const postCreated = post.created.split('T')[0];
   let alreadyCurated = false;
   post.active_votes.forEach(vote => {
@@ -30,6 +31,7 @@ function createBlogEntry(post) {
       <span class="badge badge-primary"><span class="fas fa-pencil-alt" aria-hidden="true"></span> ${post.author}</span>
       <span class="badge badge-primary"><span class="fas fa-calendar-alt" aria-hidden="true"></span> ${postCreated}</span>
       <span class="badge badge-primary"><span class="fas fa-book" aria-hidden="true"></span> ${wordCount} words</span>
+      <span class="badge badge-primary"><span class="fas fa-images" aria-hidden="true"></span> ${imgCnt}</span>
       <span class="badge badge-primary"><span class="fas fa-clock" aria-hidden="true"></span> ${estReadTime <= 0 ? 1 : estReadTime} ${ estReadTime > 1 ? 'minutes' : 'minute'}</span>
       <span class="badge badge-primary"><span class="fas fa-comments" aria-hidden="true"></span> ${post.children}</span>
       <span class="badge badge-success" style='display : ${alreadyCurated ? "" : "none"}'><span class="fas fa-check-circle" aria-hidden="true"></span></span>
