@@ -233,7 +233,7 @@
 
         steem.api.setOptions({ url: 'https://api.steemit.com/' });
         $(document).ready(function() {
-          $.getJSON('/api/get-users.php', 
+          $.getJSON('api/get-users.php', 
             { user : null }, 
             function(data) {
               data.users.forEach((user, index) => {
@@ -330,7 +330,7 @@
               $('.user-list').append('<span class="badge badge-dark user-item" style="margin-left: 2px"><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a><span style="margin-left: 2px">' + newuser + '</span></span>');
               $.ajax({
                 method: 'POST',
-                url: '/api/add-user.php', 
+                url: 'api/add-user.php', 
                 data: { user : newuser }
               })
               .done(response => {
@@ -352,7 +352,7 @@
             $('.user-item').filter(function() { return $.text([this]) === removeUser; }).remove();
             $.ajax({
               method: 'POST',
-              url: '/api/remove-user.php', 
+              url: 'api/remove-user.php', 
               data: { user : removeUser }, 
             })
             .done(response => {
