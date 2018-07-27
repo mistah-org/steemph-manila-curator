@@ -237,7 +237,7 @@
             { user : null }, 
             function(data) {
               data.users.forEach((user, index) => {
-                $('.user-list').append('<span class="badge badge-dark user-item" style="margin-left: 2px"><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a><span style="margin-left: 2px">' + user + '</span></span>');
+                $('.user-list').append('<span class="badge badge-dark user-item" style="margin-left: 2px"><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a><span style="margin-left: 2px"><a target="_blank" style="color:white" href="https://steemit.com/@' + user + '">' + user + '</a></span></span>');
               });
             }
           ).fail(function(error) {
