@@ -214,7 +214,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/steem/dist/steem.min.js"></script>
     <script src="js/remove-markdown.js"></script>
     <script src="js/coutwords.js"></script>
     <script src="js/posts-filter.js"></script>
@@ -233,8 +233,8 @@
 
         steem.api.setOptions({ url: 'https://api.steemit.com/' });
         $(document).ready(function() {
-          $.getJSON('api/get-users.php', 
-            { user : null }, 
+          $.getJSON('api/get-users.php',
+            { user : null },
             function(data) {
               data.users.forEach((user, index) => {
                 $('.user-list').append('<span class="badge badge-dark user-item" style="margin-left: 2px"><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a><span style="margin-left: 2px"><a target="_blank" style="color:white" href="https://steemit.com/@' + user + '">' + user + '</a></span></span>');
@@ -248,7 +248,7 @@
           $('.search').on('click', function() {
             $('#loading').show();
             $("#search-error").hide()
-          
+
             $('.blog-entry').not(':first').remove();
             const authors = [];
             $('.user-item').each(function() {
@@ -318,7 +318,7 @@
           $('.add-user').on('click', function() {
             const newuser = $('#user').val().trim();
 
-            let hasDuplicate = false; 
+            let hasDuplicate = false;
             $('.user-item').each(function() {
               if ($(this).text() === newuser || newuser === '') {
                 hasDuplicate = true;
@@ -330,7 +330,7 @@
               $('.user-list').append('<span class="badge badge-dark user-item" style="margin-left: 2px"><a href="#/"><span class="fas fa-times-circle remove-user" aria-hidden="true"></span></a><span style="margin-left: 2px">' + newuser + '</span></span>');
               $.ajax({
                 method: 'POST',
-                url: 'api/add-user.php', 
+                url: 'api/add-user.php',
                 data: { user : newuser }
               })
               .done(response => {
@@ -352,8 +352,8 @@
             $('.user-item').filter(function() { return $.text([this]) === removeUser; }).remove();
             $.ajax({
               method: 'POST',
-              url: 'api/remove-user.php', 
-              data: { user : removeUser }, 
+              url: 'api/remove-user.php',
+              data: { user : removeUser },
             })
             .done(response => {
                 // do nothing; remove success
@@ -366,7 +366,7 @@
           $('.add-tag').on('click', function() {
             const newtag = $('#tag').val();
 
-            let hasDuplicate = false; 
+            let hasDuplicate = false;
             $('.tag-list .tag-item').each(function() {
               if ($(this).text() === newtag) {
                 hasDuplicate = true;
