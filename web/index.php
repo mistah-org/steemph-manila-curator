@@ -206,7 +206,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; <a href="https://steemit.com/@eastmael" target="_blank">@eastmael</a> 2018</p>
+        <p class="m-0 text-center text-white">Copyright &copy; <a href="https://steemit.com/@eastmael" target="_blank">@eastmael</a> 2018-2020</p>
       </div>
       <!-- /.container -->
     </footer>
